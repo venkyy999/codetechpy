@@ -1,0 +1,40 @@
+// Declare which pin the LED is connected to
+const int ledPin = 13;
+
+// Initialize Serial communication in setup()
+void setup()
+{
+  // Set the LED pin as output
+  pinMode(ledPin, OUTPUT);
+  
+  // Begin Serial at 9600 baud rate
+  Serial.begin(9600);
+  
+  // (If you are using HC-05 directly to Serial, this is enough.
+  // If you are using SoftwareSerial, you'll need to create it first.)
+  
+  Serial.println("Ready to control LED.");
+}
+
+void loop()
+{
+  // Check if we have received any data over Serial
+  if (Serial.available()) 
+  {
+    // Read the incoming byte
+    char cmd = Serial.read();
+
+    // If we get a '1', we turn the LED ON
+    if (cmd == '1') 
+    {
+      digitalWrite(ledPin, HIGH);
+      Serial.println("LED ON.");
+    }
+    // If we get a '0', we turn the LED OFF
+    else if (cmd == '0') 
+    {
+      digitalWrite(ledPin, LOW);
+      Serial.println("LED OFF.");
+    }
+  }
+}
